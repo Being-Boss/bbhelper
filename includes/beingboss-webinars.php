@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Initializing the Webinar Replays custom post type
+* Initializing the Webinar custom post type
 */
  
 function webinar_post_type() {
@@ -27,7 +27,7 @@ function webinar_post_type() {
      
     $args = array(
         'label'               => __( 'webinar' ),
-        'description'         => __( 'Being Boss Webinar Replays' ),
+        'description'         => __( 'Being Boss Webinars' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
         'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
@@ -187,6 +187,20 @@ function cmb2_bbwebinar_metaboxes() {
     		'id'   => $prefix . 'replay_mode',
     		'type' => 'checkbox',
 	) );
+
+  $bbwebinar->add_field( array(
+        'name'       => __( 'Mode Select', 'cmb2' ),
+        'desc'       => __( 'Select a mode for the page layout', 'cmb2' ),
+        'id'         => $prefix . 'mode_select',
+        'type'       => 'select',
+        'show_option_none' => true,
+        'default'          => 'register',
+        'options'          => array(
+          'register' => __( 'Everwebinar Signup', 'cmb2' ),
+          'replay'   => __( 'On-Page Replay', 'cmb2' ),
+          'signupreplay'     => __( 'Form Submit to Replay', 'cmb2' ),
+        ),
+  ) );
 
   $bbwebinar->add_field( array(
         'name'    => 'Replay Video',
@@ -357,6 +371,14 @@ function cmb2_bbwebinar_metaboxes() {
         'type' => 'textarea_code'
   ) );
 
+  $bbwebinar->add_field( array(
+        'name' => 'Signup Form',
+        'desc' => 'Code for Drip signup form',
+        'default' => '',
+        'id' => $prefix . 'signup_form',
+        'type' => 'textarea_code'
+  ) );
+
 
 }
 
@@ -397,4 +419,179 @@ function create_webinar_hierarchical_taxonomy() {
 
 
 
-?>
+
+
+
+
+
+/*
+* Initializing the Webinar Replay custom post type
+*/
+ 
+function replay_post_type() {
+ 
+// Set UI labels for Webinar post type
+    $labels = array(
+        'name'                => _x( 'Replays', 'Post Type General Name' ),
+        'singular_name'       => _x( 'Replay', 'Post Type Singular Name' ),
+        'menu_name'           => __( 'Replays' ),
+        'parent_item_colon'   => __( 'Parent Replay' ),
+        'all_items'           => __( 'Replays' ),
+        'view_item'           => __( 'View Replay' ),
+        'add_new_item'        => __( 'Add New Replay' ),
+        'add_new'             => __( 'Add New' ),
+        'edit_item'           => __( 'Edit Replay' ),
+        'update_item'         => __( 'Update Replay' ),
+        'search_items'        => __( 'Search Replays' ),
+        'not_found'           => __( 'Not Found' ),
+        'not_found_in_trash'  => __( 'Not found in Trash' ),
+    );
+     
+// Set other options for Webinar post type
+     
+    $args = array(
+        'label'               => __( 'replay' ),
+        'description'         => __( 'Being Boss Webinar Replays' ),
+        'labels'              => $labels,
+        // Features this CPT supports in Post Editor
+        'supports'            => array( 'title', 'author', 'thumbnail', ),
+        /* A hierarchical CPT is like Pages and can have
+        * Parent and child items. A non-hierarchical CPT
+        * is like Posts.
+        */ 
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => 'bbsettings',
+        'show_in_nav_menus'   => true,
+        'show_in_admin_bar'   => true,
+        'menu_position'       => 25,
+        'can_export'          => true,
+        'has_archive'         => false,
+        'exclude_from_search' => false,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'rewrite'            => array( 'with_front' => false, 'slug' => 'watch' ),
+    );
+     
+    // Registering your Custom Post Type
+    register_post_type( 'replay', $args );
+ 
+}
+ 
+/* Hook into the 'init' action so that the function
+* Containing our post type registration is not 
+* unnecessarily executed. 
+*/
+ 
+add_action( 'init', 'replay_post_type', 0 );
+
+
+add_action( 'cmb2_admin_init', 'cmb2_bbreplay_metaboxes' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_bbreplay_metaboxes() {
+
+  // Start with an underscore to hide fields from custom fields list
+  $prefix = 'bbreplay_';
+
+  /**
+   * Initiate the metabox
+   */
+  $bbreplay = new_cmb2_box( array(
+    'id'            => 'bbreplay_metabox',
+    'title'         => __( 'Being Boss - Webinar Details', 'cmb2' ),
+    'object_types'  => array( 'replay', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    // 'cmb_styles' => false, // false to disable the CMB stylesheet
+    // 'closed'     => true, // Keep the metabox closed by default
+  ) );
+
+  $bbreplay->add_field( array(
+        'name'       => __( 'Related Webinar', 'cmb2' ),
+        'desc'       => __( 'Select a webinar post', 'cmb2' ),
+        'id'         => $prefix . 'webinar_select',
+        'type'       => 'select',
+        'show_option_none' => true,
+        'options_cb' => 'cmb2_get_webinar_list',
+        'column'  => true,
+  ) );
+
+  $bbreplay->add_field( array(
+        'name'    => 'Replay Video',
+        'desc'    => 'Embed code for replay video',
+        'default' => '',
+        'id'      => $prefix . 'replay_video',
+        'type'    => 'textarea_code',
+  ) );
+
+/*  $bbreplay->add_field( array(
+        'name'    => 'Header Image',
+        'desc'    => 'Upload an image or enter an URL.',
+        'id'      => $prefix . 'header_image',
+        'type'    => 'file',
+        // Optional:
+        'options' => array(
+            'url' => false, // Hide the text input for the url
+        ),
+        'text'    => array(
+            'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
+        ),
+  ) );
+
+  $bbreplay->add_field( array(
+        'name' => 'Header Text',
+        'desc' => 'Text overlay for page header image (HTML-enabled)',
+        'default' => '',
+        'id' => $prefix . 'header_text',
+        'type' => 'textarea_small'
+  ) );
+
+  $bbreplay->add_field( array(
+        'name' => 'Header Text Label',
+        'desc' => 'Text overlay for page header image (HTML-enabled)',
+        'default' => '',
+        'id' => $prefix . 'header_label',
+        'type' => 'text'
+  ) );*/
+
+
+}
+
+
+
+
+/**
+ * Gets a number of webinar posts and displays them as options
+ * @param  array $query_args Optional. Overrides defaults.
+ * @return array             An array of options that matches the CMB2 options array
+ */
+function cmb2_get_webinar_post_options( $query_args ) {
+
+    $args = wp_parse_args( $query_args, array(
+        'post_type'   => 'webinar',
+        'numberposts' => 100,
+    ) );
+
+    $posts = get_posts( $args );
+
+    $post_options = array();
+    if ( $posts ) {
+        foreach ( $posts as $post ) {
+          $post_options[ $post->ID ] = $post->post_title;
+        }
+    }
+
+    return $post_options;
+}
+
+/**
+ * Gets 100 posts for your_post_type and displays them as options
+ * @return array An array of options that matches the CMB2 options array
+ */
+function cmb2_get_webinar_list() {
+    return cmb2_get_webinar_post_options( array( 'post_type' => 'webinar', 'numberposts' => 100 ) );
+}
