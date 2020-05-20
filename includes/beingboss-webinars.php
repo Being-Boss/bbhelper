@@ -454,7 +454,7 @@ function replay_post_type() {
         'description'         => __( 'Being Boss Webinar Replays' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'author', 'thumbnail', ),
+        'supports'            => array( 'title', 'editor', 'author', 'thumbnail', ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.

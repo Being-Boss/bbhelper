@@ -124,7 +124,7 @@ $extra_fields =  array(
 );
 
 // Use the user_contactmethods to add new fields
-add_filter( 'user_contactmethods', 'rc_add_user_contactmethods' );
+/*add_filter( 'user_contactmethods', 'rc_add_user_contactmethods' );*/
 
 
 /**
@@ -134,7 +134,7 @@ add_filter( 'user_contactmethods', 'rc_add_user_contactmethods' );
  * @since       1.0 
  * @return      void
 */
-function rc_add_user_contactmethods( $user_contactmethods ) {
+/*function rc_add_user_contactmethods( $user_contactmethods ) {
 
 	// Get fields
 	global $extra_fields;
@@ -147,7 +147,7 @@ function rc_add_user_contactmethods( $user_contactmethods ) {
 
     // Returns the contact methods
     return $user_contactmethods;
-}
+}*/
 
 
 
