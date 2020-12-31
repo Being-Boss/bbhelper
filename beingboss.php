@@ -58,6 +58,7 @@ if(!class_exists('BB_Custom_Plugin'))
             /*require( 'includes/beingboss-directory.php' );*/
             require( 'includes/beingboss-downloads.php' );
             require( 'includes/beingboss-events.php' );
+            require( 'includes/beingboss-guests.php' );
             require( 'includes/beingboss-instagram.php' );
             require( 'includes/beingboss-library.php' );
             require( 'includes/beingboss-resources.php' );
@@ -105,4 +106,3 @@ if(class_exists('BB_Custom_Plugin'))
     // instantiate the plugin class
     $bb_custom_plugin = new BB_Custom_Plugin();
 }
-

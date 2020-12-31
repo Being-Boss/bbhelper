@@ -85,6 +85,14 @@ function bbsite_register_settings_metabox() {
 		'type'    => 'text',
 	) );
 
+	$bb_settings->add_field( array(
+		'name'    => 'Making a Business Episode Count',
+		'desc'    => 'This is used to update the total episode number of MAB episodes, includes episodes in the Clubhouse.',
+		'default' => '',
+		'id'      => 'bboptions_mabcount',
+		'type'    => 'text',
+	) );
+
 }
 
 
@@ -140,7 +148,61 @@ function beingboss_playcount_shortcode( $atts ) {
 
 
 
+// create shortcode with parameters so that the user can define what's queried - default is to list all blog posts
+add_shortcode( 'bb-main-count', 'beingboss_maincount_shortcode' );
+function beingboss_maincount_shortcode( $atts ) {
+    ob_start();
 
+    $args = array('cat' => 39,);
+	$the_query = new WP_Query( $args );
+	echo $the_query->found_posts;
+	echo ' episodes';
+        
+    wp_reset_postdata();
+    $myvariable = ob_get_clean();
+    return $myvariable;
+}
 
-?>
+// create shortcode with parameters so that the user can define what's queried - default is to list all blog posts
+add_shortcode( 'bb-10minutes-count', 'beingboss_10minutescount_shortcode' );
+function beingboss_10minutescount_shortcode( $atts ) {
+    ob_start();
 
+    $args = array('cat' => 211,);
+	$the_query = new WP_Query( $args );
+	echo $the_query->found_posts;
+	echo ' episodes';
+        
+    wp_reset_postdata();
+    $myvariable = ob_get_clean();
+    return $myvariable;
+}
+
+// create shortcode with parameters so that the user can define what's queried - default is to list all blog posts
+add_shortcode( 'bb-mab-count', 'beingboss_mabcount_shortcode' );
+function beingboss_mabcount_shortcode( $atts ) {
+    ob_start();
+
+    $mabcount = cmb2_get_option( 'bboptions', 'bboptions_mabcount' ); 
+    echo $mabcount;
+    echo ' episodes';
+        
+    wp_reset_postdata();
+    $myvariable = ob_get_clean();
+    return $myvariable;
+}
+
+// create shortcode with parameters so that the user can define what's queried - default is to list all blog posts
+add_shortcode( 'bb-minisodes-count', 'beingboss_minisodescount_shortcode' );
+function beingboss_minisodescount_shortcode( $atts ) {
+    ob_start();
+
+    $args = array('cat' => 40,);
+	$the_query = new WP_Query( $args );
+	echo $the_query->found_posts;
+	echo ' episodes';
+        
+    wp_reset_postdata();
+    $myvariable = ob_get_clean();
+    return $myvariable;
+}

@@ -1,6 +1,15 @@
 <?php
 
 
+
+add_action('admin_head', 'bb_admin_styles');
+function bb_admin_styles() {
+  echo '<style>
+	.select2-container {z-index: 1 !important;}}
+  </style>';
+}
+
+
 add_action( 'cmb2_admin_init', 'cmb2_bbpage_metaboxes' );
 /**
  * Define the metabox and field configurations.
@@ -111,7 +120,7 @@ function new_image_sizes() {
  * Add User Profile Fields
  */
 
-$extra_fields =  array( 
+$extra_fields =  array(
 	array( 'bb_facebook', __( 'BB Facebook', 'rc_cucm' ), true ),
 	array( 'bb_twitter', __( 'BB Twitter', 'rc_cucm' ), true ),
 	array( 'bb_googleplus', __( 'BB Google+', 'rc_cucm' ), true ),
@@ -131,14 +140,14 @@ $extra_fields =  array(
  * Add custom users custom contact methods
  *
  * @access      public
- * @since       1.0 
+ * @since       1.0
  * @return      void
 */
 /*function rc_add_user_contactmethods( $user_contactmethods ) {
 
 	// Get fields
 	global $extra_fields;
-	
+
 	// Display each fields
 	foreach( $extra_fields as $field ) {
 		if ( !isset( $contactmethods[ $field[0] ] ) )
@@ -344,9 +353,9 @@ function drip_add_first_last_fields( $filters, $email, $lifetime_value, $product
 /*
 * Initializing the Home Page custom post type
 */
- 
+
 function home_post_type() {
- 
+
 // Set UI labels for Home page post type
     $labels = array(
         'name'                => _x( 'Home Posts', 'Post Type General Name' ),
@@ -363,9 +372,9 @@ function home_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Home page post type
-     
+
     $args = array(
         'label'               => __( 'homeposts' ),
         'description'         => __( 'Being Boss Home Posts' ),
@@ -375,7 +384,7 @@ function home_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -389,17 +398,17 @@ function home_post_type() {
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'homeposts', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'home_post_type', 0 );
 add_action( 'cmb2_admin_init', 'cmb2_homeposts_metabox' );
 /**
@@ -476,9 +485,9 @@ function cmb2_homeposts_metabox() {
 /*
 * Initializing the Community Notice custom post type
 */
- 
+
 function community_notice_post_type() {
- 
+
 // Set UI labels for Home page post type
     $labels = array(
         'name'                => _x( 'Community Notices', 'Post Type General Name' ),
@@ -495,9 +504,9 @@ function community_notice_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Community Notices post type
-     
+
     $args = array(
         'label'               => __( 'communitynotices' ),
         'description'         => __( 'Being Boss Community Notices' ),
@@ -507,7 +516,7 @@ function community_notice_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -521,17 +530,17 @@ function community_notice_post_type() {
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'communitynotices', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'community_notice_post_type', 0 );
 add_action( 'cmb2_admin_init', 'cmb2_communitynotices_metabox' );
 /**
@@ -649,7 +658,7 @@ add_action( 'edit_user_profile', 'ffl_show_user_profile' );
 /*
     Fix first last on profile saves.
 */
-function ffl_save_extra_profile_fields( $user_id ) 
+function ffl_save_extra_profile_fields( $user_id )
 {
     if ( !current_user_can( 'edit_user', $user_id ) )
         return false;
@@ -658,13 +667,13 @@ function ffl_save_extra_profile_fields( $user_id )
     $display_name = trim($_POST['first_name'] . " " . $_POST['last_name']);
     if(!$display_name)
         $display_name = $_POST['user_login'];
-        
+
     $_POST['display_name'] = $display_name;
-    
+
     $args = array(
             'ID' => $user_id,
             'display_name' => $display_name
-    );   
+    );
     wp_update_user( $args ) ;
 }
 add_action( 'personal_options_update', 'ffl_save_extra_profile_fields' );
@@ -677,16 +686,16 @@ function ffl_fix_user_display_name($user_id)
 {
     //set the display name
     $info = get_userdata( $user_id );
-               
+
     $display_name = trim($info->first_name . ' ' . $info->last_name);
     if(!$display_name)
         $display_name = $info->user_login;
-               
+
     $args = array(
             'ID' => $user_id,
             'display_name' => $display_name
     );
-   
+
     wp_update_user( $args ) ;
 }
 add_action("user_register", "ffl_fix_user_display_name", 20);
@@ -707,23 +716,23 @@ function ffl_settings_page()
     {
         global $wpdb;
         $user_ids = $wpdb->get_col("SELECT ID FROM $wpdb->users");
-        
+
         foreach($user_ids as $user_id)
         {
-            ffl_fix_user_display_name($user_id);         
-            set_time_limit(30);         
+            ffl_fix_user_display_name($user_id);
+            set_time_limit(30);
         }
-        
+
         ?>
         <p><?php echo count($user_ids);?> users(s) fixed.</p>
         <?php
     }
-    
+
     ?>
     <p>The <em>Force First and Last Name as Display Name</em> plugin will only fix display names at registration or when a profile is updated.</p>
     <p>If you just activated this plugin, please click on the button below to update the display names of your existing users.</p>
     <p><a href="?page=ffl_settings&updateusers=1" class="button-primary">Update Existing Users</a></p>
-    <p><strong>WARNING:</strong> This may take a while! If you have a bunch of users or a slow server, <strong>this may hang up or cause other issues with your site</strong>. Use at your own risk.</p>    
+    <p><strong>WARNING:</strong> This may take a while! If you have a bunch of users or a slow server, <strong>this may hang up or cause other issues with your site</strong>. Use at your own risk.</p>
     <?php
 }
 
@@ -755,3 +764,84 @@ add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
 
 
 
+
+
+
+
+add_action( 'cmb2_admin_init', 'cmb2_bbpodcast_metaboxes' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_bbpodcast_metaboxes() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'bbpodcast_';
+
+	/**
+	 * Initiate the metabox
+	 */
+	$bbpodcast = new_cmb2_box( array(
+		'id'            => 'bbpodcast_metabox',
+		'title'         => __( 'Podcast Details', 'cmb2' ),
+		'object_types'  => array( 'page', ), // Post type
+		'show_on'      => array( 'key' => 'page-template', 'value' => 'template-podcast.php' ),
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		// 'closed'     => true, // Keep the metabox closed by default
+	) );
+
+	$bbpodcast->add_field( array(
+    		'name' => 'Show Title',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'showtitle',
+    		'type' => 'text'
+	) );
+
+	$bbpodcast->add_field( array(
+    		'name' => 'Tagline',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'showtagline',
+    		'type' => 'text'
+	) );
+
+	$bbpodcast->add_field( array(
+    		'name' => 'Description',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'showdescription',
+    		'type'    => 'wysiwyg',
+            'options' => array(
+                'wpautop' => true, // use wpautop?
+                'media_buttons' => false, // show insert/upload button(s)
+                'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                'textarea_rows' => get_option('default_post_edit_rows', 5), // rows="..."
+                'tabindex' => '',
+                'editor_css' => '', // intended for extra styles for both visual and HTML editors buttons, needs to include the `<style>` tags, can use "scoped".
+                'editor_class' => '', // add extra class(es) to the editor textarea
+                'teeny' => false, // output the minimal editor config used in Press This
+                'dfw' => false, // replace the default fullscreen with DFW (needs specific css)
+                'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+            ),
+	) );
+
+	$bbpodcast->add_field( array(
+    		'name' => 'Show Feeds',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'showfeeds',
+    		'type' => 'textarea_code',
+            'attributes' => array(
+              'data-codeeditor' => json_encode( array(
+                  'codemirror' => array(
+                    'lineNumbers' => true,
+                  ),
+              ) ),
+            ),
+	) );
+
+}

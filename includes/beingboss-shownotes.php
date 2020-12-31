@@ -32,6 +32,22 @@ function cmb2_bbshownotes_metaboxes() {
 	) );
 
 	$bbshownotes->add_field( array(
+    		'name' => 'Buzzsprout Player',
+    		'desc' => 'Paste the entire Buzzsprout player embed code',
+    		'default' => '',
+    		'id' => $prefix . 'buzzsprout',
+    		'type' => 'textarea_code'
+	) );
+
+	$bbshownotes->add_field( array(
+    		'name' => 'YouTube Player ID',
+    		'desc' => 'YouTube Video ID Only',
+    		'default' => '',
+    		'id' => $prefix . 'youtube',
+    		'type' => 'text'
+	) );
+
+	$bbshownotes->add_field( array(
     		'name' => 'Top Quote',
     		'desc' => 'Main quote for the top of the page',
     		'default' => '',
@@ -227,9 +243,9 @@ function cmb2_get_sponsors_list() {
 /*
 * Initializing the Opt-Ins custom post type
 */
- 
+
 function shownote_optins_post_type() {
- 
+
 // Set UI labels for Optins post type
     $labels = array(
         'name'                => _x( 'Optins', 'Post Type General Name' ),
@@ -246,9 +262,9 @@ function shownote_optins_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Optins post type
-     
+
     $args = array(
         'label'               => __( 'optins' ),
         'description'         => __( 'Being Boss Optins' ),
@@ -258,7 +274,7 @@ function shownote_optins_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -272,26 +288,26 @@ function shownote_optins_post_type() {
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'optins', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'shownote_optins_post_type', 0 );
 
 
 
 // Add new Optins Category taxonomy
 add_action( 'init', 'create_optincat_hierarchical_taxonomy', 0 );
- 
+
 function create_optincat_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Display Style', 'taxonomy general name' ),
     'singular_name' => _x( 'Display Style', 'taxonomy singular name' ),
@@ -299,15 +315,15 @@ function create_optincat_hierarchical_taxonomy() {
     'all_items' => __( 'All Display Styles' ),
     'parent_item' => __( 'Parent Style' ),
     'parent_item_colon' => __( 'Parent Style:' ),
-    'edit_item' => __( 'Edit Display Style' ), 
+    'edit_item' => __( 'Edit Display Style' ),
     'update_item' => __( 'Update Display Style' ),
     'add_new_item' => __( 'Add New Display Style' ),
     'new_item_name' => __( 'New Display Style Name' ),
     'menu_name' => __( 'Display Styles' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('displaystyle',array('optins'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -316,7 +332,7 @@ function create_optincat_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'displaystyle' ),
   ));
- 
+
 }
 
 
@@ -379,17 +395,17 @@ function custom_resources_init(){
     'capabilities' => array(
       // allow anyone editing posts to assign terms
       'assign_terms' => 'edit_posts',
-      /* 
-      * but you probably don't want anyone except 
-      * admins messing with what gets auto-generated! 
+      /*
+      * but you probably don't want anyone except
+      * admins messing with what gets auto-generated!
       */
       'edit_terms' => 'administrator'
     )
   );
 
-  /* 
+  /*
   * create the custom taxonomy and attach it to
-  * custom post type A 
+  * custom post type A
   */
   register_taxonomy( 'related-resources', 'post', $args);
 }
@@ -413,17 +429,17 @@ function update_resources_terms($post_id) {
   if (get_post_status($post_id) == 'auto-draft') {
     return;
   }
-    
+
   /*
-  * Grab the post title and slug to use as the new 
+  * Grab the post title and slug to use as the new
   * or updated term name and slug
   */
   $term_title = get_the_title($post_id);
   $term_slug = get_post( $post_id )->post_name;
 
   /*
-  * Check if a corresponding term already exists by comparing 
-  * the post ID to all existing term descriptions. 
+  * Check if a corresponding term already exists by comparing
+  * the post ID to all existing term descriptions.
   */
   $existing_terms = get_terms('related-resources', array(
     'hide_empty' => false
@@ -442,8 +458,8 @@ function update_resources_terms($post_id) {
     }
   }
 
-  /* 
-  * If we didn't find a match above, this is a new post, 
+  /*
+  * If we didn't find a match above, this is a new post,
   * so create a new term.
   */
   wp_insert_term($term_title, 'related-resources', array(
