@@ -3,9 +3,9 @@
 /*
 * Initializing the Resources custom post type
 */
- 
+
 function resources_post_type() {
- 
+
 // Set UI labels for Resources post type
     $labels = array(
         'name'                => _x( 'Resources', 'Post Type General Name' ),
@@ -22,9 +22,9 @@ function resources_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Resources post type
-     
+
     $args = array(
         'label'               => __( 'resources' ),
         'description'         => __( 'Being Boss Resources' ),
@@ -34,7 +34,7 @@ function resources_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -43,22 +43,22 @@ function resources_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => false,
+        'has_archive'         => true,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'resources', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'resources_post_type', 0 );
 
 
@@ -119,9 +119,9 @@ function cmb2_resources_metabox() {
 
 // Add new Resource Category taxonomy
 add_action( 'init', 'create_resourcecat_hierarchical_taxonomy', 0 );
- 
+
 function create_resourcecat_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Resource Category', 'taxonomy general name' ),
     'singular_name' => _x( 'Resource Category', 'taxonomy singular name' ),
@@ -129,15 +129,15 @@ function create_resourcecat_hierarchical_taxonomy() {
     'all_items' => __( 'All Resource Categories' ),
     'parent_item' => __( 'Parent Category' ),
     'parent_item_colon' => __( 'Parent Category:' ),
-    'edit_item' => __( 'Edit Resource Category' ), 
+    'edit_item' => __( 'Edit Resource Category' ),
     'update_item' => __( 'Update Resource Category' ),
     'add_new_item' => __( 'Add New Resource Category' ),
     'new_item_name' => __( 'New Resource Category Name' ),
     'menu_name' => __( 'Resource Categories' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('resourcecategory',array('resources'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -146,7 +146,7 @@ function create_resourcecat_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'resourcecategory' ),
   ));
- 
+
 }
 
 

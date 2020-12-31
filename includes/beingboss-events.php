@@ -4,9 +4,9 @@
 /*
 * Initializing the Events custom post type
 */
- 
+
 function events_post_type() {
- 
+
 // Set UI labels for Events post type
     $labels = array(
         'name'                => _x( 'Events', 'Post Type General Name' ),
@@ -23,9 +23,9 @@ function events_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Event post type
-     
+
     $args = array(
         'label'               => __( 'events' ),
         'description'         => __( 'Being Boss Events' ),
@@ -35,7 +35,7 @@ function events_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -44,22 +44,22 @@ function events_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => false,
+        'has_archive'         => true,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'events', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'events_post_type', 0 );
 
 
@@ -105,7 +105,7 @@ function cmb2_events_metabox() {
             'id'      => $prefix . 'event_where',
             'type'    => 'textarea_small',
     ) );
-	
+
 	$bbevents->add_field( array(
     		'name'    => 'Event Details',
     		'desc'    => '',
@@ -129,7 +129,7 @@ function cmb2_events_metabox() {
             'id'      => $prefix . 'event_label',
             'type'    => 'text',
     ) );
-	
+
 	$bbevents->add_field( array(
 		'name'	=> 'Thrive Leads Vacation Video ID',
 		'desc'	=> 'Popup Video',
@@ -276,9 +276,9 @@ function cmb2_events_club_metabox() {
 
 // Add new Event Type taxonomy
 add_action( 'init', 'create_eventtype_hierarchical_taxonomy', 0 );
- 
+
 function create_eventtype_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Event Type', 'taxonomy general name' ),
     'singular_name' => _x( 'Event Type', 'taxonomy singular name' ),
@@ -286,15 +286,15 @@ function create_eventtype_hierarchical_taxonomy() {
     'all_items' => __( 'All Event Types' ),
     'parent_item' => __( 'Parent Type' ),
     'parent_item_colon' => __( 'Parent Type:' ),
-    'edit_item' => __( 'Edit Event Type' ), 
+    'edit_item' => __( 'Edit Event Type' ),
     'update_item' => __( 'Update Event Type' ),
     'add_new_item' => __( 'Add New Event Type' ),
     'new_item_name' => __( 'New Event Type Name' ),
     'menu_name' => __( 'Event Types' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('eventtype',array('events'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -303,7 +303,7 @@ function create_eventtype_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'eventtype' ),
   ));
- 
+
 }
 
 
