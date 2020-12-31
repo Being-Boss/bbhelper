@@ -30,7 +30,7 @@ function shownote_optins_post_type() {
         'description'         => __( 'Being Boss Optins' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+        'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
@@ -93,5 +93,59 @@ function create_optincat_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'displaystyle' ),
   ));
+
+}
+
+
+
+add_action( 'cmb2_admin_init', 'cmb2_bboptin_metabox' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_bboptin_metabox() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'bboptin_';
+
+	/**
+	 * Initiate the metabox
+	 */
+	$bboptin = new_cmb2_box( array(
+		'id'            => 'bboptin_metabox',
+		'title'         => __( 'Optin Details', 'cmb2' ),
+		'object_types'  => array( 'optins', ), // Post type
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		// 'closed'     => true, // Keep the metabox closed by default
+	) );
+
+  $bboptin->add_field( array(
+  		'name' => 'Universal Clean Slug',
+  		'desc' => '',
+  		'id' => $prefix . 'slug',
+      'type'             => 'select',
+      'show_option_none' => true,
+      'default'          => 'none',
+      'options'          => array(
+          '4-goal-setting' => __( '4 Goal-Setting Business Questions', 'cmb2' ),
+          'bullet-journal'   => __( 'Bullet Journal', 'cmb2' ),
+          'chalkboard-method'     => __( 'Chalkboard Method', 'cmb2' ),
+          'content-brainstorm'     => __( 'Content Brainstorm', 'cmb2' ),
+          'getting-shit-done'     => __( 'Getting Shit Done', 'cmb2' ),
+          'hot-shit-200'     => __( 'Hot Shit 200', 'cmb2' ),
+          'make-100-today'     => __( 'Make $100 Today', 'cmb2' ),
+          'map-out-your-thoughts'     => __( 'Map Out Your Thoughts', 'cmb2' ),
+          'push-goals'     => __( 'Push Goals', 'cmb2' ),
+          'tarot-spread-for-bosses'     => __( 'Tarot Spread for Bosses', 'cmb2' ),
+          'tarot-spread-for-taking-action'     => __( 'Tarot Spread for Taking Action', 'cmb2' ),
+          'track-your-metrics'     => __( 'Track Your Metrics', 'cmb2' ),
+          'wellness-challenge'     => __( 'Wellness Challenge', 'cmb2' ),
+          'whats-working'     => __( 'What is Working Kinda Not', 'cmb2' ),
+          'work-life-balance'     => __( 'Work Life Balance', 'cmb2' ),
+          'ideal-day'     => __( 'Your Ideal Day', 'cmb2' ),
+      ),
+	) );
 
 }
