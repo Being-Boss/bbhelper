@@ -65,6 +65,7 @@ if(!class_exists('BB_Custom_Plugin'))
             require( 'includes/beingboss-shownotes.php' );
             require( 'includes/beingboss-sponsors.php' );
             require( 'includes/beingboss-webinars.php' );
+            require( 'includes/beingboss-worksheets.php' );
 
             //$plugin = plugin_basename(__FILE__);
             //add_filter("plugin_action_links_$plugin", array( $this, 'plugin_settings_link' ));
