@@ -69,51 +69,67 @@ add_action( 'cmb2_admin_init', 'cmb2_resources_metabox' );
 /**
  * Define the metabox and field configurations.
  */
-function cmb2_resources_metabox() {
+ function cmb2_resources_metabox() {
 
-	// Start with an underscore to hide fields from custom fields list
-	$prefix = 'bbresources_';
+ 	// Start with an underscore to hide fields from custom fields list
+ 	$prefix = 'bbresources_';
 
-	/**
-	 * Initiate the metabox
-	 */
-	$bbresources = new_cmb2_box( array(
-		'id'            => 'bbresources_metabox',
-		'title'         => __( 'Resource Details', 'cmb2' ),
-		'object_types'  => array( 'resources', ), // Post type
-		'context'       => 'normal',
-		'priority'      => 'high',
-		'show_names'    => true, // Show field names on the left
-		// 'cmb_styles' => false, // false to disable the CMB stylesheet
-		// 'closed'     => true, // Keep the metabox closed by default
-	) );
+ 	/**
+ 	 * Initiate the metabox
+ 	 */
+ 	$bbresources = new_cmb2_box( array(
+ 		'id'            => 'bbresources_metabox',
+ 		'title'         => __( 'Resource Details', 'cmb2' ),
+ 		'object_types'  => array( 'resources', ), // Post type
+ 		'context'       => 'normal',
+ 		'priority'      => 'high',
+ 		'show_names'    => true, // Show field names on the left
+ 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+ 		// 'closed'     => true, // Keep the metabox closed by default
+ 	) );
 
-	$bbresources->add_field( array(
-    		'name'    => 'Resource Quote',
-    		'desc'    => 'Do not include quotation marks',
-    		'default' => '',
-    		'id'      => $prefix . 'quote',
-    		'type'    => 'text',
-	) );
+ 	$bbresources->add_field( array(
+     		'name'    => 'Resource Quote',
+     		'desc'    => 'Do not include quotation marks',
+     		'default' => '',
+     		'id'      => $prefix . 'quote',
+     		'type'    => 'text',
+ 	) );
 
-    	$bbresources->add_field( array(
-            	'name'    => 'Resource Quote Author',
-            	'desc'    => '',
-            	'default' => '',
-            	'id'      => $prefix . 'quote_author',
-            	'type'    => 'text',
-    	) );
+ 	$bbresources->add_field( array(
+         	'name'    => 'Resource Quote Author',
+         	'desc'    => '',
+         	'default' => '',
+         	'id'      => $prefix . 'quote_author',
+         	'type'    => 'text',
+ 	) );
 
-	$bbresources->add_field( array(
-    		'name'       => __( 'Sidebar Optin', 'cmb2' ),
-    		'desc'       => __( 'Select a sidebar optin', 'cmb2' ),
-    		'id'         => $prefix . 'optin_select',
-    		'type'       => 'select',
-		'show_option_none' => true,
-    		'options_cb' => 'cmb2_get_optins_resource_list',
-	) );
+ 	$bbresources->add_field( array(
+     		'name'       => __( 'Sidebar Optin', 'cmb2' ),
+     		'desc'       => __( 'Select a sidebar optin', 'cmb2' ),
+     		'id'         => $prefix . 'optin_select',
+     		'type'       => 'select',
+ 		    'show_option_none' => true,
+     		'options_cb' => 'cmb2_get_optins_resource_list',
+ 	) );
 
-}
+   $bbresources->add_field( array(
+         	'name'    => 'Vimeo ID',
+         	'desc'    => '',
+         	'default' => '',
+         	'id'      => $prefix . 'video',
+         	'type'    => 'text',
+ 	) );
+
+   $bbresources->add_field( array(
+         	'name'    => 'Vimeo Description',
+         	'desc'    => '',
+         	'default' => '',
+         	'id'      => $prefix . 'description',
+         	'type'    => 'text',
+ 	) );
+
+ }
 
 
 
