@@ -149,3 +149,50 @@ function cmb2_bboptin_metabox() {
 	) );
 
 }
+
+
+// create shortcode
+add_shortcode( 'bboptin', 'beingboss_optin_block' );
+function beingboss_optin_block( $atts ) {
+  // define attributes and their defaults
+  extract( shortcode_atts( array (
+    'id' => null,
+  ), $atts ) );
+
+  // define query parameters based on attributes
+  $options = array(
+    'post_type' => 'optins',
+    'posts_per_page' => 1,
+    'p' => $id
+  );
+  $query = new WP_Query( $options );
+  ob_start();
+  // run the loop based on the query
+  if ( $query->have_posts() ) {
+    while ( $query->have_posts() ) : $query->the_post();
+				$postid = get_the_ID(); ?>
+
+    <div class="optin-block alignwide mt-3 mb-5 optin-id-<?php echo $postid; ?>">
+      <div class="row">
+        <div class="col col-lg-9 col-xl-7 offset-lg-3 offset-xl-5 pb-5 pb-md-0">
+          <p class="center fs46 lust italic">featured download</p>
+        </div>
+      </div>
+      <div class="row row-eq-height align-items-end bg-accent mt-3 mt-md-0">
+        <div class="col-md-5 text-center">
+          <img src="/wp-content/themes/beingboss/img/Optin_Worksheets.png" style="margin-top: -75px;">
+        </div>
+        <div class="col-md-7 py-4 px-5 mb-3">
+          <p class="italic">In this episode, the <span class="upper heavy brandon"><?php echo get_the_title($postid); ?></span> worksheet was mentioned. Download your copy here!</p>
+          <p class="text-center"><a href="/worksheet/<?php echo get_post_meta( $postid, 'bboptin_slug', true ); ?>" class="btn btn-white" target="_blank">Download Now</a></p>
+        </div>
+      </div>
+    </div>
+
+    <?php endwhile;
+			wp_reset_postdata();
+		}
+
+		$optin = ob_get_clean();
+		return $optin;
+}
