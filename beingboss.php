@@ -3,7 +3,7 @@
 Plugin Name: Being Boss Helper
 Plugin URI:  https://www.beingboss.club
 Description: Custom Wordpress Functions for Being Boss
-Version:     1.9.2
+Version:     1.9.9
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 License:     GPLv2
