@@ -511,7 +511,7 @@ class My_Custom_My_Account_Endpoint {
 	* Endpoint HTML content.
 	*/
  public function endpoint_content() {
-	 echo do_shortcode('[ld_profile]'); // HERE GOES LEARNDASH SHORTCODE
+	 get_template_part( '/template-parts/shop-purchasedmaterial' );
  }
 
  /**
