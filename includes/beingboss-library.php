@@ -3,9 +3,9 @@
 /*
 * Initializing the Library custom post type
 */
- 
+
 function library_post_type() {
- 
+
 // Set UI labels for Library post type
     $labels = array(
         'name'                => _x( 'Library', 'Post Type General Name' ),
@@ -22,19 +22,19 @@ function library_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Library post type
-     
+
     $args = array(
         'label'               => __( 'library' ),
         'description'         => __( 'Being Boss Library' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+        'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -43,22 +43,22 @@ function library_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => false,
+        'has_archive'         => true,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'library', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'library_post_type', 0 );
 
 
@@ -104,7 +104,7 @@ function cmb2_library_metabox() {
 
 
 	$bblibrary->add_field( array(
-    		'name' => __( 'Download/Email Link', 'cmb2' ),    		
+    		'name' => __( 'Download/Email Link', 'cmb2' ),
 		'desc' => 'Dropbox download link/email subscribe link',
     		'default' => '',
     		'id' => $prefix . 'download_link',
@@ -148,9 +148,9 @@ function cmb2_library_metabox() {
         // all query parameters can be modified (https://codex.wordpress.org/Class_Reference/WP_Query)
         //$query_args['offset'] = 3;
    // }
-    
+
    // return $query_args;
-    
+
 //}
 
 //add_filter('tg_wp_query_args', 'resourcelibrary_query_args', 10, 2);
@@ -161,9 +161,9 @@ function cmb2_library_metabox() {
 
 // Add new Library Type taxonomy
 add_action( 'init', 'create_librarytype_hierarchical_taxonomy', 0 );
- 
+
 function create_librarytype_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Library Type', 'taxonomy general name' ),
     'singular_name' => _x( 'Library Type', 'taxonomy singular name' ),
@@ -171,15 +171,15 @@ function create_librarytype_hierarchical_taxonomy() {
     'all_items' => __( 'All Library Types' ),
     'parent_item' => __( 'Parent Type' ),
     'parent_item_colon' => __( 'Parent Type:' ),
-    'edit_item' => __( 'Edit Library Type' ), 
+    'edit_item' => __( 'Edit Library Type' ),
     'update_item' => __( 'Update Library Type' ),
     'add_new_item' => __( 'Add New Library Type' ),
     'new_item_name' => __( 'New Library Type Name' ),
     'menu_name' => __( 'Library Types' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('librarytype',array('library'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -188,7 +188,7 @@ function create_librarytype_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'librarytype' ),
   ));
- 
+
 }
 
 
