@@ -30,7 +30,7 @@ function resources_post_type() {
         'description'         => __( 'Being Boss Resources' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+        'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
@@ -178,13 +178,6 @@ function cmb2_get_optins_resource_options( $query_args ) {
     $args = wp_parse_args( $query_args, array(
         'post_type'   => 'optins',
         'numberposts' => 100,
-	'tax_query' => array(
-		array(
-			'taxonomy' => 'displaystyle',
-			'field'    => 'slug',
-			'terms'    => 'sidebar',
-		),
-	),
 
     ) );
 
@@ -207,10 +200,3 @@ function cmb2_get_optins_resource_options( $query_args ) {
 function cmb2_get_optins_resource_list() {
     return cmb2_get_optins_resource_options( array( 'post_type' => 'optins', 'numberposts' => 100 ) );
 }
-
-
-
-
-
-
-?>
