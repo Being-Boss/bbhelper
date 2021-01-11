@@ -192,7 +192,7 @@ function beingboss_optin_block( $atts ) {
         </div>
         <div class="col-md-7 py-4 px-5 mb-3">
           <p class="italic">In this episode, the <span class="upper heavy brandon"><?php echo get_the_title($postid); ?></span> worksheet was mentioned. Download your copy here!</p>
-          <p class="text-center"><?php echo get_post_meta( $fullwidth_optin, 'bboptin_convertkit', true ); ?></p>
+          <p class="text-center"><?php echo get_post_meta( $postid, 'bboptin_convertkit', true ); ?></p>
         </div>
       </div>
     </div>
