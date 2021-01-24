@@ -3,9 +3,9 @@
 /*
 * Initializing the Articles custom post type
 */
- 
+
 function article_post_type() {
- 
+
 // Set UI labels for Articles post type
     $labels = array(
         'name'                => _x( 'Articles', 'Post Type General Name' ),
@@ -22,9 +22,9 @@ function article_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Article post type
-     
+
     $args = array(
         'label'               => __( 'article' ),
         'description'         => __( 'Being Boss Articles' ),
@@ -34,7 +34,7 @@ function article_post_type() {
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -43,22 +43,22 @@ function article_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => false,
+        'has_archive'         => true,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'articles', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'article_post_type', 0 );
 
 
@@ -72,9 +72,9 @@ add_action( 'init', 'article_post_type', 0 );
 
 // Add new Article category taxonomy
 add_action( 'init', 'create_article_hierarchical_taxonomy', 0 );
- 
+
 function create_article_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Article Categories', 'taxonomy general name' ),
     'singular_name' => _x( 'Article Category', 'taxonomy singular name' ),
@@ -82,15 +82,15 @@ function create_article_hierarchical_taxonomy() {
     'all_items' => __( 'All Article Categories' ),
     'parent_item' => __( 'Parent Category' ),
     'parent_item_colon' => __( 'Parent Category:' ),
-    'edit_item' => __( 'Edit Article Category' ), 
+    'edit_item' => __( 'Edit Article Category' ),
     'update_item' => __( 'Update Article Category' ),
     'add_new_item' => __( 'Add New Article Category' ),
     'new_item_name' => __( 'New Article Category Name' ),
     'menu_name' => __( 'Categories' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('articlecategories',array('articles'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -99,7 +99,7 @@ function create_article_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'articlecategories' ),
   ));
- 
+
 }
 
 
@@ -125,17 +125,17 @@ function custom_resources_articles_init(){
     'capabilities' => array(
       // allow anyone editing posts to assign terms
       'assign_terms' => 'edit_posts',
-      /* 
-      * but you probably don't want anyone except 
-      * admins messing with what gets auto-generated! 
+      /*
+      * but you probably don't want anyone except
+      * admins messing with what gets auto-generated!
       */
       'edit_terms' => 'administrator'
     )
   );
 
-  /* 
+  /*
   * create the custom taxonomy and attach it to
-  * custom post type A 
+  * custom post type A
   */
   register_taxonomy( 'related-resources-articles', 'articles', $args);
 }
@@ -159,17 +159,17 @@ function update_resources_articles_terms($post_id) {
   if (get_post_status($post_id) == 'auto-draft') {
     return;
   }
-    
+
   /*
-  * Grab the post title and slug to use as the new 
+  * Grab the post title and slug to use as the new
   * or updated term name and slug
   */
   $term_title = get_the_title($post_id);
   $term_slug = get_post( $post_id )->post_name;
 
   /*
-  * Check if a corresponding term already exists by comparing 
-  * the post ID to all existing term descriptions. 
+  * Check if a corresponding term already exists by comparing
+  * the post ID to all existing term descriptions.
   */
   $existing_terms = get_terms('related-resources-articles', array(
     'hide_empty' => false
@@ -188,8 +188,8 @@ function update_resources_articles_terms($post_id) {
     }
   }
 
-  /* 
-  * If we didn't find a match above, this is a new post, 
+  /*
+  * If we didn't find a match above, this is a new post,
   * so create a new term.
   */
   wp_insert_term($term_title, 'related-resources-articles', array(
