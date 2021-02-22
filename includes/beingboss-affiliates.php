@@ -3,9 +3,9 @@
 /*
 * Initializing the Affiliates custom post type
 */
- 
+
 function affiliates_post_type() {
- 
+
 // Set UI labels for Affiliates post type
     $labels = array(
         'name'                => _x( 'Affiliates', 'Post Type General Name' ),
@@ -22,19 +22,19 @@ function affiliates_post_type() {
         'not_found'           => __( 'Not Found' ),
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
-     
+
 // Set other options for Affiliates post type
-     
+
     $args = array(
         'label'               => __( 'affiliates' ),
         'description'         => __( 'Being Boss Affiliates' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'author', 'thumbnail', 'revisions', 'custom-fields', ),
+        'supports'            => array( 'title', 'thumbnail' ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
-        */ 
+        */
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -48,17 +48,17 @@ function affiliates_post_type() {
         'publicly_queryable'  => false,
         'capability_type'     => 'post',
     );
-     
+
     // Registering your Custom Post Type
     register_post_type( 'affiliates', $args );
- 
+
 }
- 
+
 /* Hook into the 'init' action so that the function
-* Containing our post type registration is not 
-* unnecessarily executed. 
+* Containing our post type registration is not
+* unnecessarily executed.
 */
- 
+
 add_action( 'init', 'affiliates_post_type', 0 );
 
 
@@ -102,6 +102,14 @@ function cmb2_affiliates_metabox() {
     		'type'    => 'text',
 	) );
 
+  $bbaffiliates->add_field( array(
+    		'name'    => 'Description',
+    		'desc'    => '',
+    		'default' => '',
+    		'id'      => $prefix . 'description',
+    		'type'    => 'textarea',
+	) );
+
 }
 
 
@@ -111,9 +119,9 @@ function cmb2_affiliates_metabox() {
 
 // Add new Affiliate category taxonomy
 add_action( 'init', 'create_affiliate_hierarchical_taxonomy', 0 );
- 
+
 function create_affiliate_hierarchical_taxonomy() {
- 
+
   $labels = array(
     'name' => _x( 'Affiliate Categories', 'taxonomy general name' ),
     'singular_name' => _x( 'Affiliate Category', 'taxonomy singular name' ),
@@ -121,15 +129,15 @@ function create_affiliate_hierarchical_taxonomy() {
     'all_items' => __( 'All Affiliate Categories' ),
     'parent_item' => __( 'Parent Category' ),
     'parent_item_colon' => __( 'Parent Category:' ),
-    'edit_item' => __( 'Edit Affiliate Category' ), 
+    'edit_item' => __( 'Edit Affiliate Category' ),
     'update_item' => __( 'Update Affiliate Category' ),
     'add_new_item' => __( 'Add New Affiliate Category' ),
     'new_item_name' => __( 'New Affiliate Category Name' ),
     'menu_name' => __( 'Categories' ),
-  );    
- 
+  );
+
 // Registers the taxonomy
- 
+
   register_taxonomy('affiliatecategories',array('affiliates'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -139,7 +147,7 @@ function create_affiliate_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'affiliatecategories' ),
   ));
- 
+
 }
 
 
