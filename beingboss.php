@@ -60,6 +60,7 @@ if(!class_exists('BB_Custom_Plugin'))
             require( 'includes/beingboss-events.php' );
             require( 'includes/beingboss-guests.php' );
             require( 'includes/beingboss-instagram.php' );
+            require( 'includes/beingboss-jobs.php' );
             require( 'includes/beingboss-library.php' );
             require( 'includes/beingboss-optins.php' );
             require( 'includes/beingboss-resources.php' );
