@@ -134,9 +134,9 @@ add_shortcode( 'bb-play-count', 'beingboss_playcount_shortcode' );
 function beingboss_playcount_shortcode( $atts ) {
     ob_start();
 
-    $playcount = cmb2_get_option( 'bboptions', 'bboptions_playcount' ); 
+    $playcount = cmb2_get_option( 'bboptions', 'bboptions_playcount' );
     echo $playcount;
-        
+
     wp_reset_postdata();
     $myvariable = ob_get_clean();
     return $myvariable;
@@ -157,7 +157,7 @@ function beingboss_maincount_shortcode( $atts ) {
 	$the_query = new WP_Query( $args );
 	echo $the_query->found_posts;
 	echo ' episodes';
-        
+
     wp_reset_postdata();
     $myvariable = ob_get_clean();
     return $myvariable;
@@ -172,7 +172,7 @@ function beingboss_10minutescount_shortcode( $atts ) {
 	$the_query = new WP_Query( $args );
 	echo $the_query->found_posts;
 	echo ' episodes';
-        
+
     wp_reset_postdata();
     $myvariable = ob_get_clean();
     return $myvariable;
@@ -183,10 +183,10 @@ add_shortcode( 'bb-mab-count', 'beingboss_mabcount_shortcode' );
 function beingboss_mabcount_shortcode( $atts ) {
     ob_start();
 
-    $mabcount = cmb2_get_option( 'bboptions', 'bboptions_mabcount' ); 
+    $mabcount = cmb2_get_option( 'bboptions', 'bboptions_mabcount' );
     echo $mabcount;
     echo ' episodes';
-        
+
     wp_reset_postdata();
     $myvariable = ob_get_clean();
     return $myvariable;
@@ -201,7 +201,7 @@ function beingboss_minisodescount_shortcode( $atts ) {
 	$the_query = new WP_Query( $args );
 	echo $the_query->found_posts;
 	echo ' episodes';
-        
+
     wp_reset_postdata();
     $myvariable = ob_get_clean();
     return $myvariable;
