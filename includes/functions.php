@@ -121,19 +121,19 @@ function new_image_sizes() {
  */
 
 $extra_fields =  array(
-	array( 'bb_facebook', __( 'BB Facebook', 'rc_cucm' ), true ),
+	/*array( 'bb_facebook', __( 'BB Facebook', 'rc_cucm' ), true ),
 	array( 'bb_twitter', __( 'BB Twitter', 'rc_cucm' ), true ),
 	array( 'bb_googleplus', __( 'BB Google+', 'rc_cucm' ), true ),
 	array( 'bb_linkedin', __( 'BB LinkedIn', 'rc_cucm' ), false ),
 	array( 'bb_pinterest', __( 'BB Pinterest', 'rc_cucm' ), false ),
 	array( 'bb_instagram', __( 'BB Instagram', 'rc_cucm' ), false ),
 	array( 'bb_youtube', __( 'BB Youtube', 'rc_cucm' ), false ),
-	array( 'bb_website', __( 'BB Website', 'rc_cucm' ), false ),
+	array( 'bb_website', __( 'BB Website', 'rc_cucm' ), false ),*/
 	array( 'bb_customavatar', __( 'BB Custom Avatar', 'rc_cucm' ), false )
 );
 
 // Use the user_contactmethods to add new fields
-/*add_filter( 'user_contactmethods', 'rc_add_user_contactmethods' );*/
+add_filter( 'user_contactmethods', 'rc_add_user_contactmethods' );
 
 
 /**
@@ -143,7 +143,7 @@ $extra_fields =  array(
  * @since       1.0
  * @return      void
 */
-/*function rc_add_user_contactmethods( $user_contactmethods ) {
+function rc_add_user_contactmethods( $user_contactmethods ) {
 
 	// Get fields
 	global $extra_fields;
@@ -156,11 +156,40 @@ $extra_fields =  array(
 
     // Returns the contact methods
     return $user_contactmethods;
-}*/
+}
 
 
 
+add_action( 'cmb2_init', 'bb_user_meta' );
+/**
+ * Hook in and add a metabox to add fields to the user profile pages
+ */
+function bb_user_meta() {
+	$prefix = 'bb_user_';
+	/**
+	 * Metabox for the user profile screen
+	 */
+	$bb_user = new_cmb2_box( array(
+		'id'               => $prefix . 'meta',
+		'title'            => __( 'Being Boss Info', 'cmb2' ), // Doesn't output for user boxes
+		'object_types'     => array( 'user' ), // Tells CMB2 to use user_meta vs post_meta
+		'show_names'       => true,
+		'new_user_section' => 'add-new-user', // where form will show on new user page. 'add-existing-user' is only other valid option.
+	) );
+	$bb_user->add_field( array(
+		'name'     => __( 'Custom Avatar', 'cmb2' ),
+		'id'       => $prefix . 'avatar',
+		'type'     => 'file',
+    'query_args' => array(
+        'type' => array(
+            'image/gif',
+           'image/jpeg',
+          'image/png',
+         ),
+    ),
+	) );
 
+}
 
 
 
