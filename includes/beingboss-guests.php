@@ -58,34 +58,9 @@ function guests_post_type() {
 * Containing our post type registration is not
 * unnecessarily executed.
 */
-
 add_action( 'init', 'guests_post_type', 0 );
 
 
-
-add_action( 'cmb2_admin_init', 'cmb2_guests_metabox' );
-/**
- * Define the metabox and field configurations.
- */
-function cmb2_guests_metabox() {
-
-	// Start with an underscore to hide fields from custom fields list
-	$prefix = 'bbguests_';
-
-	/**
-	 * Initiate the metabox
-	 */
-	$bbguests = new_cmb2_box( array(
-		'id'            => 'bbguests_metabox',
-		'title'         => __( 'Guest Details', 'cmb2' ),
-		'object_types'  => array( 'guests', ), // Post type
-		'context'       => 'normal',
-		'priority'      => 'high',
-		'show_names'    => true, // Show field names on the left
-		// 'cmb_styles' => false, // false to disable the CMB stylesheet
-		// 'closed'     => true, // Keep the metabox closed by default
-	) );
-}
 
 function guests_posts_per_page( $query ) {
     if ( is_admin() || ! $query->is_main_query() ) {
