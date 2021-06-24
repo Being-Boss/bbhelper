@@ -93,6 +93,36 @@ function bbsite_register_settings_metabox() {
 		'type'    => 'text',
 	) );
 
+	$bb_settings->add_field( array(
+		'name'    => 'Featured Guest Order',
+		'id'      => 'bbguest_featured_order',
+		'type'    => 'custom_attached_posts',
+		'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
+		'options' => array(
+			'show_thumbnails' => true, // Show thumbnails on the left
+			'filter_boxes'    => true, // Show a text box for filtering the results
+			'query_args'      => array(
+				'post_type'      => 'guests',
+				'post_status'	 => 'publish',
+			), // override the get_posts args
+		),
+	) );
+
+	$bb_settings->add_field( array(
+		'name'    => 'Bestie Guest Order',
+		'id'      => 'bbguest_bestie_order',
+		'type'    => 'custom_attached_posts',
+		'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
+		'options' => array(
+			'show_thumbnails' => true, // Show thumbnails on the left
+			'filter_boxes'    => true, // Show a text box for filtering the results
+			'query_args'      => array(
+				'post_type'      => 'guests',
+				'post_status'	 => 'publish',
+			), // override the get_posts args
+		),
+	) );
+
 }
 
 
