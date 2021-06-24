@@ -43,7 +43,7 @@ function guests_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => false,
+        'has_archive'         => true,
         'exclude_from_search' => true,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
@@ -85,6 +85,15 @@ function cmb2_guests_metabox() {
 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
 		// 'closed'     => true, // Keep the metabox closed by default
 	) );
-
-
 }
+
+function guests_posts_per_page( $query ) {
+    if ( is_admin() || ! $query->is_main_query() ) {
+       return;
+    }
+
+    if ( is_post_type_archive( 'guests' ) ) {
+       $query->set( 'posts_per_page', -1 );
+    }
+}
+add_filter( 'pre_get_posts', 'guests_posts_per_page' );
