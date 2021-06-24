@@ -104,6 +104,7 @@ function bbsite_register_settings_metabox() {
 			'query_args'      => array(
 				'post_type'      => 'guests',
 				'post_status'	 => 'publish',
+				'posts_per_page' => -1,
 			), // override the get_posts args
 		),
 	) );
@@ -119,6 +120,7 @@ function bbsite_register_settings_metabox() {
 			'query_args'      => array(
 				'post_type'      => 'guests',
 				'post_status'	 => 'publish',
+				'posts_per_page' => -1,
 			), // override the get_posts args
 		),
 	) );
