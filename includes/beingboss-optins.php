@@ -147,7 +147,7 @@ function cmb2_bboptin_metabox() {
           'ideal-day'     => __( 'Your Ideal Day', 'cmb2' ),
       ),
 	) );
-	
+
 	$bboptin->add_field( array(
     		'name' => 'Convertkit Form',
     		'desc' => '',
@@ -156,6 +156,13 @@ function cmb2_bboptin_metabox() {
     		'type' => 'textarea_code'
 	) );
 
+  $bboptin->add_field( array(
+    		'name' => 'Ontraport Form',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'ontraport',
+    		'type' => 'textarea_code'
+	) );
 }
 
 
