@@ -38,7 +38,7 @@ function article_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => 'bbsettings',
+        // 'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
