@@ -3,7 +3,7 @@
 Plugin Name: Being Boss Helper
 Plugin URI:  https://www.beingboss.club
 Description: Custom Wordpress Functions for Being Boss
-Version:     2.0.5
+Version:     2.0.8
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 License:     GPLv2
@@ -53,6 +53,7 @@ if(!class_exists('BB_Custom_Plugin'))
             require( 'includes/settings.php' );
             require( 'includes/beingboss-affiliates.php' );
             require( 'includes/beingboss-articles.php' );
+            require( 'includes/beingboss-brewed.php' );
             require( 'includes/beingboss-community.php' );
             require( 'includes/beingboss-courses.php' );
             /*require( 'includes/beingboss-directory.php' );*/
