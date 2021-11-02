@@ -48,6 +48,7 @@ function events_post_type() {
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
+        'show_in_rest'        => true,
     );
 
     // Registering your Custom Post Type
@@ -86,6 +87,7 @@ function cmb2_events_metabox() {
 		'context'       => 'normal',
 		'priority'      => 'high',
 		'show_names'    => true, // Show field names on the left
+    'show_in_rest'  => WP_REST_Server::ALLMETHODS,
 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
 		// 'closed'     => true, // Keep the metabox closed by default
 	) );
@@ -96,6 +98,7 @@ function cmb2_events_metabox() {
             'default' => '',
             'id'      => $prefix . 'event_time',
             'type'    => 'textarea_small',
+            'show_in_rest' => WP_REST_Server::ALLMETHODS,
     ) );
 
     $bbevents->add_field( array(
@@ -104,6 +107,7 @@ function cmb2_events_metabox() {
             'default' => '',
             'id'      => $prefix . 'event_where',
             'type'    => 'textarea_small',
+            'show_in_rest' => WP_REST_Server::ALLMETHODS,
     ) );
 
 	$bbevents->add_field( array(
@@ -112,6 +116,7 @@ function cmb2_events_metabox() {
     		'default' => '',
     		'id'      => $prefix . 'event_details',
     		'type'    => 'textarea_small',
+        'show_in_rest' => WP_REST_Server::ALLMETHODS,
 	) );
 
 	$bbevents->add_field( array(
@@ -120,6 +125,7 @@ function cmb2_events_metabox() {
     		'default' => '',
     		'id'      => $prefix . 'event_link',
     		'type'    => 'text',
+        'show_in_rest' => WP_REST_Server::ALLMETHODS,
 	) );
 
     $bbevents->add_field( array(
@@ -128,6 +134,7 @@ function cmb2_events_metabox() {
             'default' => '',
             'id'      => $prefix . 'event_label',
             'type'    => 'text',
+            'show_in_rest' => WP_REST_Server::ALLMETHODS,
     ) );
 
 	$bbevents->add_field( array(
@@ -305,13 +312,3 @@ function create_eventtype_hierarchical_taxonomy() {
   ));
 
 }
-
-
-
-
-
-
-
-
-
-?>
