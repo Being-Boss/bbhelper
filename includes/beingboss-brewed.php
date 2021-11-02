@@ -46,6 +46,7 @@ function brewed_post_type() {
         'has_archive'         => true,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
+        'show_in_rest'        => true,
         'capability_type'     => 'post',
     );
 
@@ -64,7 +65,46 @@ add_action( 'init', 'brewed_post_type', 0 );
 
 
 
+add_action( 'cmb2_admin_init', 'cmb2_bbbrewed_metaboxes' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_bbbrewed_metaboxes() {
 
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'bbbrewed_';
+
+	/**
+	 * Initiate the metabox
+	 */
+	$bbbrewed = new_cmb2_box( array(
+		'id'            => 'bbbrewed_metabox',
+		'title'         => __( 'Brewed Details', 'cmb2' ),
+		'object_types'  => array( 'brewed', ), // Post type
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		// 'closed'     => true, // Keep the metabox closed by default
+	) );
+
+	$bbbrewed->add_field( array(
+    		'name' => 'Subheader (Preview) Text',
+    		'desc' => '',
+    		'default' => '',
+    		'id' => $prefix . 'preview',
+    		'type' => 'textarea_small'
+	) );
+
+  $bbbrewed->add_field( array(
+    		'name' => 'Byline',
+    		'desc' => 'This email was prepared for you by...',
+    		'default' => '',
+    		'id' => $prefix . 'byline',
+    		'type' => 'textarea_small'
+	) );
+
+}
 
 
 
