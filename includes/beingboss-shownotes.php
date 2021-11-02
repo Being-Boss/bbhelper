@@ -166,6 +166,48 @@ function cmb2_bbshownotes_metaboxes() {
 
 
 
+add_action( 'cmb2_admin_init', 'cmb2_bbepisode_metabox' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_bbepisode_metabox() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'bbepisode_';
+
+	/**
+	 * Initiate the metabox
+	 */
+	$bbepisode = new_cmb2_box( array(
+		'id'            => 'bbepisode_metabox',
+		'title'         => __( 'Episode Details', 'cmb2' ),
+		'object_types'  => array( 'post', ), // Post type
+		'context'       => 'side',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		// 'closed'     => true, // Keep the metabox closed by default
+	) );
+
+	$bbepisode->add_field( array(
+    		'name' => 'Season #',
+    		'id'   => $prefix . 'season',
+    		'type' => 'text',
+				'column' => true,
+	) );
+
+	$bbepisode->add_field( array(
+    		'name' => 'Episode #',
+    		'id'   => $prefix . 'number',
+    		'type' => 'text',
+				'column' => true,
+	) );
+
+}
+
+
+
+
 
 
 /**
