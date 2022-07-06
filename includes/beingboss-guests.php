@@ -44,7 +44,7 @@ function guests_post_type() {
         'menu_position'       => 25,
         'can_export'          => true,
         'has_archive'         => true,
-        'exclude_from_search' => true,
+        'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
     );
