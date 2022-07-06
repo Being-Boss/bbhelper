@@ -302,14 +302,14 @@ add_filter( 'pre_get_posts', 'author_custom_post_types' );
 
 
 
-function my_search_filter($query) {
-  if ( !is_admin() && $query->is_main_query() ) {
-    if ($query->is_search) {
-      $query->set('post_type', array( 'post', 'articles' ) );
-    }
-  }
-}
-add_action('pre_get_posts','my_search_filter');
+// function my_search_filter($query) {
+//   if ( !is_admin() && $query->is_main_query() ) {
+//     if ($query->is_search) {
+//       $query->set('post_type', array( 'post', 'articles' ) );
+//     }
+//   }
+// }
+// add_action('pre_get_posts','my_search_filter');
 
 
 
