@@ -147,12 +147,12 @@ function cmb2_bbshownotes_metaboxes() {
         'type' => 'textarea_small'
   	) );
 
-  	$bbshownotes->add_field( array(
-		'name' => 'Episode Transcript',
-		'desc' => '',
-		'id'   => $prefix . 'transcript',
-		'type' => 'wysiwyg'
-	) );
+  // 	$bbshownotes->add_field( array(
+	// 	'name' => 'Episode Transcript',
+	// 	'desc' => '',
+	// 	'id'   => $prefix . 'transcript',
+	// 	'type' => 'wysiwyg'
+	// ) );
 
   	$bbshownotes->add_field( array(
 		'name' => 'Editor Notes',
