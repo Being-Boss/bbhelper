@@ -187,8 +187,9 @@ function beingboss_maincount_shortcode( $atts ) {
 
     $args = array('cat' => 39,);
 	$the_query = new WP_Query( $args );
+	echo '<span class="italic">';
 	echo $the_query->found_posts;
-	echo ' episodes';
+	echo ' episodes</span>';
 
     wp_reset_postdata();
     $myvariable = ob_get_clean();
@@ -202,8 +203,9 @@ function beingboss_10minutescount_shortcode( $atts ) {
 
     $args = array('cat' => 211,);
 	$the_query = new WP_Query( $args );
+	echo '<span class="italic">';
 	echo $the_query->found_posts;
-	echo ' episodes';
+	echo ' episodes</span>';
 
     wp_reset_postdata();
     $myvariable = ob_get_clean();
@@ -216,8 +218,9 @@ function beingboss_mabcount_shortcode( $atts ) {
     ob_start();
 
     $mabcount = cmb2_get_option( 'bboptions', 'bboptions_mabcount' );
-    echo $mabcount;
-    echo ' episodes';
+    echo '<span class="italic">';
+		echo $mabcount;
+    echo ' episodes</span>';
 
     wp_reset_postdata();
     $myvariable = ob_get_clean();
@@ -231,8 +234,9 @@ function beingboss_minisodescount_shortcode( $atts ) {
 
     $args = array('cat' => 40,);
 	$the_query = new WP_Query( $args );
+	echo '<span class="italic">';
 	echo $the_query->found_posts;
-	echo ' episodes';
+	echo ' episodes</span>';
 
     wp_reset_postdata();
     $myvariable = ob_get_clean();
